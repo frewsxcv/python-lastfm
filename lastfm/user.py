@@ -305,10 +305,12 @@ class User(LastfmBase):
         """most recent track played by the user"""
         return self.recent_tracks[0]
 
-    def get_top_albums(self, period = None):
+    def get_top_albums(self, period = None, page = None):
         params = self._default_params({'method': 'user.getTopAlbums'})
         if period is not None:
             params.update({'period': period})
+        if page is not None:
+            params.update({'page': page})
         data = self._api._fetch_data(params).find('topalbums')
 
         return [
